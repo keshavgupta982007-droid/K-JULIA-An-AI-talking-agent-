@@ -21,8 +21,8 @@ from datetime import datetime
 # ─────────────────────────────────────────────
 # AI ENGINE IMPORTS (FIXED)
 # ─────────────────────────────────────────────
-from ai_logic.conversation_manager import JuliaBrain
-from ai_logic.escalation import EscalationManager
+from ai_engine.conversation_manager import JuliaBrain
+from ai_engine.escalation import EscalationManager
 
 # ─────────────────────────────────────────────
 # VOICE SYSTEM IMPORTS (FIXED)
@@ -173,3 +173,4 @@ def main():
 # ─────────────────────────────────────────────
 if __name__ == "__main__":
     main()
+
