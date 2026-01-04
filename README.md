@@ -79,10 +79,16 @@ Calculates KPIs
 Displays analytics for authorities
 
 📂 Final Project Structure
-AI_VOICE_AGENT_PROJECT/
-│
-├── main.py                 # Entry point – integrates AI, Voice, and Dashboard
-├── requirements.txt        # Global dependencies
+
+AI_VOICE_AGENT_PROJECT
+
+
+├── main.py
+# Entry point – integrates AI, Voice, and Dashboard--->
+
+├── requirements.txt   
+# Global dependencies--->
+
 ├── README.md               # Project documentation
 │
 ├── ai_logic/               # 🧠 AI Engine
