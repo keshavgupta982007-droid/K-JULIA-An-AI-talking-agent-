@@ -17,13 +17,13 @@ Key characteristics:
 
 ## Folder Structure
 brain/
-├── config.py                  # All constants, supported intents, thresholds
-├── intents.py                 # Keyword patterns for each intent
-├── intent_classifier.py       # Rule-based intent detection
-├── response_generator.py      # Response templates & generation logic
-├── conversation_manager.py    # Main JuliaBrain class + state machine
-├── escalation.py              # Dedicated escalation rules & logic
-├── init.py                # Package initialization
+├── config.py                  # All constants, supported intents, thresholds---
+├── intents.py                 # Keyword patterns for each intent---
+├── intent_classifier.py       # Rule-based intent detection---
+├── response_generator.py      # Response templates & generation logic---
+├── conversation_manager.py    # Main JuliaBrain class + state machine---
+├── escalation.py              # Dedicated escalation rules & logic---
+├── init.py                # Package initialization---
 └── README.md                  # This file
 
 ## Main Components
@@ -62,4 +62,5 @@ response = k_julia.process_message(user_text)
 
 # Voice module will translate response back to user's language & speak it
 print(response)
+
 # Output: "Thank you for mentioning your problem. May I know your name, address, and contact number please?"
