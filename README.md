@@ -83,11 +83,9 @@ Displays analytics for authorities
 AI_VOICE_AGENT_PROJECT
 
 
-├── main.py
-# Entry point – integrates AI, Voice, and Dashboard--->
+├── main.py ( Entry point – integrates AI, Voice, and Dashboard)--->
 
-├── requirements.txt   
-# Global dependencies--->
+├── requirements.txt   ( Global dependencies) --->
 
 ├── README.md               # Project documentation
 │
