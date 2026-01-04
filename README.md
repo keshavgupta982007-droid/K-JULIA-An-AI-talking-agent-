@@ -87,19 +87,20 @@ AI_VOICE_AGENT_PROJECT
 
 ├── requirements.txt   ( Global dependencies) --->
 
-├── README.md               # Project documentation
+├── README.md      (Project documentation) -->
 │
-├── ai_logic/               # 🧠 AI Engine
-│   ├── config.py
-│   ├── intents.py
-│   ├── intent_classifier.py
-│   ├── response_generator.py
-│   ├── conversation_manager.py
-│   ├── escalation.py
-│   ├── __init__.py
+├── ai_logic/       [ 🧠 AI Engine]
+
+│   ├── config.py ---|..........|............
+│   |── intents.py---|..........|............
+│   ├── intent_classifier.py---|..........|...........
+│   ├── response_generator.py---|..........|...........
+│   ├── conversation_manager.py---|..........|...........
+│   ├── escalation.py---|..........|..........
+│   ├── __init__.py---|...........|...........
 │   └── README.md
 │
-├── voice_system/           # 🎧 Voice Interaction Layer
+├── voice_system/           [ 🎧 Voice Interaction Layer]
 │   ├── config.py
 │   ├── audio_input.py
 │   ├── stt_engine.py
