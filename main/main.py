@@ -1,37 +1,37 @@
 """
 main.py
-Unified entry point for K‑Julia AI Voice Automation System
+Central orchestrator for K‑Julia AI Voice Automation System
 
-Integrates:
-1. AI Engine (ai_engine / JuliaBrain)
+Connects:
+1. AI Engine (ai_logic)
 2. Voice System (voice_system)
 3. Dashboard & KPI Analytics (dashboard)
 """
 
 # ─────────────────────────────────────────────
-# STANDARD LIBS
+# STANDARD LIBRARIES
 # ─────────────────────────────────────────────
 import threading
 import time
 import sys
-from datetime import datetime
 import csv
 import os
+from datetime import datetime
 
 # ─────────────────────────────────────────────
-# AI ENGINE IMPORTS
+# AI ENGINE IMPORTS (FIXED)
 # ─────────────────────────────────────────────
-from ai_engine import JuliaBrain
-from ai_engine.escalation import EscalationManager
+from ai_logic.conversation_manager import JuliaBrain
+from ai_logic.escalation import EscalationManager
 
 # ─────────────────────────────────────────────
-# VOICE SYSTEM IMPORTS
+# VOICE SYSTEM IMPORTS (FIXED)
 # ─────────────────────────────────────────────
 from voice_system.voice_controller import handle_voice_interaction
 import voice_system.ai_bridge as ai_bridge
 
 # ─────────────────────────────────────────────
-# DASHBOARD IMPORT
+# DASHBOARD IMPORTS (FIXED)
 # ─────────────────────────────────────────────
 from dashboard.dashboard import app as dashboard_app
 
@@ -46,7 +46,7 @@ LOG_FILE = "logs.csv"
 
 
 # ─────────────────────────────────────────────
-# LOGGING UTIL (feeds KPI + Dashboard)
+# KPI / DASHBOARD LOGGING
 # ─────────────────────────────────────────────
 def log_call(
     call_type="Inbound",
@@ -63,11 +63,19 @@ def log_call(
 
     with open(LOG_FILE, "a", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
+
         if not file_exists:
             writer.writerow([
-                "timestamp", "call_type", "issue_category", "status",
-                "escalated", "priority", "duration", "agent_type",
-                "citizen_feedback", "language"
+                "timestamp",
+                "call_type",
+                "issue_category",
+                "status",
+                "escalated",
+                "priority",
+                "duration",
+                "agent_type",
+                "citizen_feedback",
+                "language"
             ])
 
         writer.writerow([
@@ -85,24 +93,23 @@ def log_call(
 
 
 # ─────────────────────────────────────────────
-# REAL AI BRIDGE (PATCH VOICE → BRAIN)
+# REAL AI BRIDGE (VOICE → AI ENGINE)
 # ─────────────────────────────────────────────
 def real_brain_bridge(intent_packet):
     """
-    This replaces the placeholder AI bridge.
-    Voice system → JuliaBrain → text response
+    Replaces placeholder AI logic in voice_system.ai_bridge
     """
 
     user_text = intent_packet.get("query", "")
-    domain = intent_packet.get("domain", "general")
+    domain = intent_packet.get("domain", "General")
 
-    # Brain response
+    # Get AI response
     response = brain.process_message(user_text)
 
-    # Basic escalation check (simplified for demo)
+    # Simple escalation detection (demo-safe)
     escalated = "Yes" if "human" in response.lower() else "No"
 
-    # Log for dashboard/KPIs
+    # Log interaction
     log_call(
         call_type="Inbound",
         issue_category=domain.title(),
@@ -114,7 +121,7 @@ def real_brain_bridge(intent_packet):
     return response
 
 
-# Inject real brain into voice system
+# Inject real AI logic into voice system
 ai_bridge.send_to_brain = real_brain_bridge
 
 
@@ -142,19 +149,22 @@ def run_dashboard():
 # MAIN
 # ─────────────────────────────────────────────
 def main():
-    print("========================================")
-    print("   K‑JULIA AI VOICE AUTOMATION SYSTEM   ")
-    print("========================================")
+    print("==========================================")
+    print("  K‑JULIA AI VOICE AUTOMATION SYSTEM")
+    print("==========================================")
 
-    # Start dashboard in background
-    dashboard_thread = threading.Thread(target=run_dashboard, daemon=True)
+    # Start dashboard in background thread
+    dashboard_thread = threading.Thread(
+        target=run_dashboard,
+        daemon=True
+    )
     dashboard_thread.start()
 
-    # Start voice system (blocking)
+    # Start voice system (blocking loop)
     try:
         run_voice_system()
     except KeyboardInterrupt:
-        print("\n🛑 System shutting down.")
+        print("\n🛑 Shutting down system safely.")
         sys.exit(0)
 
 
