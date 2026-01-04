@@ -216,7 +216,6 @@ Libraries & APIs:
 --> SpeechRecognition — STT
 --> PyAudio — Microphone input
 --> pyttsx3 — Offline TTS
---> Flask — Backend & dashboard
 --> CSV — Lightweight data storage
 
 Open‑Source Stack:
