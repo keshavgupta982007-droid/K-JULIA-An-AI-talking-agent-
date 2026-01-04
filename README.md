@@ -25,5 +25,19 @@ Provide 24×7 public service assistance
 
 Build a vendor‑neutral, open‑source governance solution
 
+🧠 System Architecture — High‑Level Flow
+Citizen Voice
+     ↓
+Voice System (STT + Safety)
+     ↓
+AI Engine (Intent + Decision)
+     ↓
+Response / Escalation Decision
+     ↓
+Voice Reply (TTS)
+     ↓
+Dashboard Logging & Analytics
+
+
 
 
