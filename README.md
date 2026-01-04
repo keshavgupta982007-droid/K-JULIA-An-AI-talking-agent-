@@ -96,37 +96,66 @@ AI_VOICE_AGENT_PROJECT
 
 │  || |── intents.py
 
-│   ├── intent_classifier.py---|..........|...........
-│   ├── response_generator.py---|..........|...........
-│   ├── conversation_manager.py---|..........|...........
-│   ├── escalation.py---|..........|..........
-│   ├── __init__.py---|...........|...........
-│   └── README.md
-│
+│  || ├── intent_classifier.py 
+
+│  || ├── response_generator.py 
+
+│  || ├── conversation_manager.py 
+
+│  ||├── escalation.py 
+
+│  || ├── __init__.py 
+
+│  || └── README.md
+
+
 ├── voice_system/           [ 🎧 Voice Interaction Layer]
-│   ├── config.py
-│   ├── audio_input.py
-│   ├── stt_engine.py
-│   ├── intent_parser.py
-│   ├── compliance_filter.py
-│   ├── ai_bridge.py
-│   ├── tts_engine.py
-│   ├── conversation_manager.py
-│   ├── voice_controller.py
-│   ├── __init__.py
-│   └── README.md
-│
-├── dashboard/              # 📊 Analytics & Monitoring
-│   ├── dashboard.py
-│   ├── kpi_calculations.py
-│   ├── logs.csv
-│   ├── templates/
-│   │   └── dashboard.html
-│   ├── static/
-│   │   ├── style.css
-│   │   └── charts.js
-│   ├── __init__.py
-│   └── README_dashboard.md
+
+│  || ├── config.py
+
+│  ||├── audio_input.py
+
+│  || ├── stt_engine.py
+
+│  || ├── intent_parser.py
+
+│  || ├── compliance_filter.py
+
+│  || ├── ai_bridge.py
+
+│  || ├── tts_engine.py
+
+│  || ├── conversation_manager.py
+
+│  || ├── voice_controller.py
+
+│  || ├── __init__.py
+
+│  || └── README.md
+
+
+├── dashboard/              [ 📊 Analytics & Monitoring]
+
+│  || ├── dashboard.py
+
+│  || ├── kpi_calculations.py
+
+│  || ├── logs.csv
+
+│  || ├── templates/
+
+│   │ |||  └── dashboard.html
+
+│  || ├── static/
+
+│   │ |||  ├── style.css
+
+│   │ ||| └── charts.js
+
+│  || ├── __init__.py
+
+│  ||└── README_dashboard.md
+
 🧠 AI Engine (ai_logic/)
 Role: Core decision‑making brain of K‑JULIA
 
