@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Voice Automation – Civic Services Command Center</title>
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+  <!-- Charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body
+  data-inbound="{{ analytics.inbound }}"
+  data-outbound="{{ analytics.outbound }}"
+  data-duration='{{ analytics.duration_distribution | tojson }}'
+  data-hourly='{{ analytics.hourly_distribution | tojson }}'
+  data-priority='{{ escalation.priority_distribution | tojson }}'
+  data-language='{{ experience.language_distribution | tojson }}'
+  data-trends='{{ trends | tojson }}'
+  data-top-categories='{{ complaints.top_categories | tojson }}'
+>
+
+<!-- ================= HEADER ================= -->
+<header>
+  <div class="header-content">
+    <div>
+      <h1><i class="fas fa-headset"></i> AI Voice Automation System</h1>
+      <p class="subtitle">Intelligent Civic Services Command Center</p>
+    </div>
+    <div class="header-actions">
+      <button onclick="refreshData()">
+        <i class="fas fa-sync-alt"></i> Refresh
+      </button>
+      <button onclick="exportReport()">
+        <i class="fas fa-download"></i> Export Report
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ================= INSIGHTS ================= -->
+{% if insights %}
+<section class="insights-banner">
+  <h2><i class="fas fa-lightbulb"></i> Real-Time Insights & Alerts</h2>
+  <div class="insights-container">
+    {% for insight in insights %}
+    <div class="insight-card {{ insight.type }}">
+      <i class="fas fa-info-circle"></i>
+      <span>{{ insight.message }}</span>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endif %}
+
+<!-- ================= SYSTEM OVERVIEW ================= -->
+<section>
+  <h2><i class="fas fa-tachometer-alt"></i> System Performance Overview</h2>
+  <div class="grid grid-4">
+
+    <div class="card">
+      <div class="card-label">Total Calls Handled</div>
+      <div class="card-value">{{ overview.total_calls }}</div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Inbound Civic Requests</div>
+      <div class="card-value">{{ overview.inbound_calls }}</div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Outbound Follow-ups</div>
+      <div class="card-value">{{ overview.outbound_calls }}</div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Avg Call Duration</div>
+      <div class="card-value">{{ overview.avg_duration }} sec</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= AI PERFORMANCE ================= -->
+<section>
+  <h2><i class="fas fa-robot"></i> AI Resolution Performance</h2>
+  <div class="grid grid-3">
+
+    <div class="card">
+      <div class="card-label">AI-Resolved Calls</div>
+      <div class="card-value">{{ overview.ai_handled }}</div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Human Escalations</div>
+      <div class="card-value">{{ overview.human_handled }}</div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Auto-Resolution Rate</div>
+      <div class="card-value">{{ complaints.resolution_rate }}%</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= COMPLAINT INTELLIGENCE ================= -->
+<section>
+  <h2><i class="fas fa-file-alt"></i> Civic Complaint Intelligence</h2>
+  <div class="grid grid-5">
+
+    <div class="card">
+      <div class="card-label">Registered</div>
+      <div class="card-value">{{ complaints.total }}</div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Resolved</div>
+      <div class="card-value">{{ complaints.resolved }}</div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Auto-Resolved</div>
+      <div class="card-value">{{ complaints.auto_resolved }}</div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Pending</div>
+      <div class="card-value">{{ complaints.pending }}</div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">Escalated</div>
+      <div class="card-value">{{ complaints.escalated }}</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= ANALYTICS ================= -->
+<section>
+  <h2><i class="fas fa-chart-bar"></i> Call Analytics</h2>
+
+  <div class="charts-grid">
+    <div class="chart-container">
+      <h3>Inbound vs Outbound</h3>
+      <canvas id="callTypeChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+      <h3>Call Duration</h3>
+      <canvas id="durationChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+      <h3>Priority Levels</h3>
+      <canvas id="priorityChart"></canvas>
+    </div>
+
+    <div class="chart-container">
+      <h3>Languages Used</h3>
+      <canvas id="languageChart"></canvas>
+    </div>
+
+    <div class="chart-container chart-wide">
+      <h3>Hourly Call Volume</h3>
+      <canvas id="hourlyChart"></canvas>
+    </div>
+
+    <div class="chart-container chart-wide">
+      <h3>Top Civic Complaint Categories</h3>
+      <canvas id="categoryChart"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <p>
+    <i class="fas fa-lock"></i> Secure |
+    <i class="fas fa-user-shield"></i> Privacy-First |
+    <i class="fas fa-shield-alt"></i> Government-Grade
+  </p>
+  <p>Last Updated: <span id="lastUpdate"></span></p>
+</footer>
+
+<!-- ================= SCRIPTS ================= -->
+<script src="{{ url_for('static', filename='charts.js') }}"></script>
+
+<script>
+  function refreshData() {
+    location.reload();
+  }
+
+  function exportReport() {
+    window.open('/export', '_blank');
+  }
+
+  document.getElementById('lastUpdate').textContent =
+    new Date().toLocaleString();
+</script>
+
+</body>
+</html>
