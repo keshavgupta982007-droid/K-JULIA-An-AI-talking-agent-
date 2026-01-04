@@ -88,11 +88,14 @@ AI_VOICE_AGENT_PROJECT
 ├── requirements.txt   ( Global dependencies) --->
 
 ├── README.md      (Project documentation) -->
-│
+
+
 ├── ai_logic/       [ 🧠 AI Engine]
 
-│   ├── config.py ---|..........|............
-│   |── intents.py---|..........|............
+│  || ├── config.py 
+
+│  || |── intents.py
+
 │   ├── intent_classifier.py---|..........|...........
 │   ├── response_generator.py---|..........|...........
 │   ├── conversation_manager.py---|..........|...........
