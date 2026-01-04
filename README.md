@@ -6,24 +6,24 @@ It enables citizens to interact with government services through natural phone�
 
 The system is designed to be:
 
-Accessible (voice‑first, inclusive)
+1.Accessible (voice‑first, inclusive)
 
-Scalable (modular architecture)
+2.Scalable (modular architecture)
 
-Cost‑effective (open‑source, offline‑friendly)
+3.Cost‑effective (open‑source, offline‑friendly)
 
-Government‑ready (auditability, escalation, analytics)
+4.Government‑ready (auditability, escalation, analytics)
 
 🎯 Project Objectives
-Enable voice‑based civic interaction
+1.Enable voice‑based civic interaction
 
-Automate complaint registration & handling
+2.Automate complaint registration & handling
 
-Reduce load on manual call centers
+3.Reduce load on manual call centers
 
-Provide 24×7 public service assistance
+4.Provide 24×7 public service assistance
 
-Build a vendor‑neutral, open‑source governance solution
+5.Build a vendor‑neutral, open‑source governance solution
 
 🧠 System Architecture — High‑Level Flow
 Citizen Voice--
@@ -41,7 +41,7 @@ Dashboard Logging & Analytics
 🔄 Detailed Data Flow
 Citizen speaks through microphone / phone
 
-Voice System
+Voice System-->
 
 Captures audio
 
@@ -49,7 +49,7 @@ Converts speech → text (STT)
 
 Applies compliance & safety filters
 
-AI Engine (Brain)
+AI Engine (Brain)-->
 
 Detects intent & civic domain
 
@@ -60,7 +60,8 @@ Registers complaint OR decides escalation
 Decision Output
 
 Auto‑resolution
-OR
+
+OR-->
 
 Transfer to human officer
 
@@ -161,130 +162,103 @@ Role: Core decision‑making brain of K‑JULIA
 
 Responsibilities:
 
-Intent classification (rule‑based NLP)
+1.Intent classification (rule‑based NLP)
 
-Conversation state management
+2.Conversation state management
 
-Complaint registration
+3.Complaint registration
 
-Escalation logic (frustration, emergency, human request)
+4.Escalation logic (frustration, emergency, human request)
 
-Structured response generation
+5.Structured response generation
 
 Key Concepts:
 
-Stateful dialogue
+--> Stateful dialogue
 
-Confidence thresholds
+--> Confidence thresholds
 
-Auto vs human handling
+--> Auto vs human handling
 
 🎧 Voice System (voice_system/)
 Role: Human‑AI voice interface
 
 Responsibilities:
 
-Audio capture
+1.Audio capture
 
-Speech‑to‑Text (STT)
+2.Speech‑to‑Text (STT)
 
-Safety & compliance filtering
+3.Safety & compliance filtering
 
-AI interaction via bridge
+4.AI interaction via bridge
 
-Text‑to‑Speech (TTS)
+5.Text‑to‑Speech (TTS)
 
-Design Principle:
+-->Design Principle:
 No AI logic lives here — only voice handling
 
 📊 Dashboard System (dashboard/)
 Role: Transparency, monitoring & governance analytics
 
 Responsibilities:
-
-Store interaction logs
-
-Calculate KPIs
-
-Visualize civic service performance
-
-Enable administrative oversight
+--> Store interaction logs
+--> Calculate KPIs
+--> Visualize civic service performance
+--> Enable administrative oversight
 
 🛠️ Technologies Used
-Programming
-Python
+Programming:
+--> Python
+--> HTML, CSS, JavaScript
 
-HTML, CSS, JavaScript
+Libraries & APIs:
+--> SpeechRecognition — STT
+--> PyAudio — Microphone input
+--> pyttsx3 — Offline TTS
+--> Flask — Backend & dashboard
+--> CSV — Lightweight data storage
 
-Libraries & APIs
-SpeechRecognition — STT
+Open‑Source Stack:
+--> GitHub (version control)
+--> Vendor‑neutral Python ecosystem
 
-PyAudio — Microphone input
-
-pyttsx3 — Offline TTS
-
-Flask — Backend & dashboard
-
-CSV — Lightweight data storage
-
-Open‑Source Stack
-GitHub (version control)
-
-Vendor‑neutral Python ecosystem
-
-✔️ Ensures cost‑effective, transparent, government‑ready deployment
+--> Ensures cost‑effective, transparent, government‑ready deployment
 
 👥 Team Members & Roles
 👩‍💻 Drishya Murali
-AI Engine & backend logic
-
-Complaint handling flow
-
-System integration & testing
+--> AI Engine & backend logic
+--> Complaint handling flow
+--> System integration & testing
 
 👨‍💻 Hrijul Bhardwaj
-Voice system implementation
-
-STT & TTS pipelines
-
-Compliance & safety logic
+--> Voice system implementation
+--> STT & TTS pipelines
+--> Compliance & safety logic
 
 👨‍💻 Keshav Gupta
-System architecture & design
-
-Dashboard, KPIs & analytics
-
-Documentation & reporting
+--> System architecture & design
+--> Dashboard, KPIs & analytics
+--> Documentation & reporting
 
 ⚙️ Installation & Execution
-pip install -r requirements.txt
-python main.py
+--> pip install -r requirements.txt
+--> python main.py
+
 🌐 Civic Use Cases
-Citizen grievance registration
-
-Municipal helpline automation
-
-Smart City information assistant
-
-Public service inquiry handling
-
-Emergency escalation routing
+--> Citizen grievance registration
+--> Municipal helpline automation
+--> Smart City information assistant
+--> Public service inquiry handling
+--> Emergency escalation routing
 
 🚀 Future Scope
-Multilingual voice support
-
-Real‑time human agent handoff
-
-Cloud deployment
-
-Integration with government portals
-
-Advanced analytics & ML‑based intent detection
+--> Multilingual voice support
+--> Real‑time human agent handoff
+--> Cloud deployment
+--> Integration with government portals
+--> Advanced analytics & ML‑based intent detection
 
 🏁 Conclusion
 K‑JULIA demonstrates how AI‑driven voice automation can transform civic service delivery by making governance accessible, efficient, and citizen‑centric, fully aligned with Smart City & Digital Governance initiatives.
-
-
-
-
 
