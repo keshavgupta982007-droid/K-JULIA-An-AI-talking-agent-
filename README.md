@@ -81,43 +81,77 @@ Displays analytics for authorities
 
 AI_VOICE_AGENT_PROJECT
 ├── main.py ( Entry point – integrates AI, Voice, and Dashboard ) --->
+
 ├── requirements.txt ( Global dependencies ) --->
+
 ├── README.md ( Project documentation ) --->
 
 ├── ai_logic/ [ 🧠 AI Engine ]
+
 │ || --> config.py
+
 │ || --> intents.py
+
 │ || --> intent_classifier.py
+
 │ || --> response_generator.py
+
 │ || --> conversation_manager.py
+
 │ || --> escalation.py
+
 │ || --> init.py
+
 │ || --> README.md
+
 
 ├── voice_system/ [ 🎧 Voice Interaction Layer ]
+
 │ || --> config.py
+
 │ || --> audio_input.py
+
 │ || --> stt_engine.py
+
 │ || --> intent_parser.py
+
 │ || --> compliance_filter.py
+
 │ || --> ai_bridge.py
+
 │ || --> tts_engine.py
+
 │ || --> conversation_manager.py
+
 │ || --> voice_controller.py
+
 │ || --> init.py
+
 │ || --> README.md
 
+
 ├── dashboard/ [ 📊 Analytics & Monitoring ]
+
 │ || --> dashboard.py
+
 │ || --> kpi_calculations.py
+
 │ || --> logs.csv
+
 │ || --> templates/
+
 │ │ ||| --> dashboard.html
+
 │ || --> static/
+
 │ │ ||| --> style.css
+
 │ │ ||| --> charts.js
+
 │ || --> init.py
+
 │ || --> README_dashboard.md
+
 🧠 AI Engine (ai_logic/)
 Role: Core decision‑making brain of K‑JULIA
 
