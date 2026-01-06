@@ -1,12 +1,50 @@
-import csv
+import os
 from datetime import datetime
 from collections import defaultdict
+from supabase import create_client, Client
 
-LOG_FILE = "logs.csv"
+# Initialize Supabase client
+SUPABASE_URL = os.getenv("VITE_SUPABASE_URL")
+SUPABASE_KEY = os.getenv("VITE_SUPABASE_ANON_KEY")
+
+supabase: Client = None
+
+def init_supabase():
+    global supabase
+    if supabase is None:
+        supabase = create_client(SUPABASE_URL, SUPABASE_KEY)
+    return supabase
 
 def load_logs():
-    with open(LOG_FILE, newline="", encoding="utf-8") as f:
-        return list(csv.DictReader(f))
+    """Load all call logs from Supabase database"""
+    try:
+        sb = init_supabase()
+        response = sb.table("calls").select("*").order("created_at", desc=True).execute()
+
+        # Convert to dict format matching old CSV structure
+        logs = []
+        for record in response.data:
+            logs.append({
+                "call_id": record.get("call_id", ""),
+                "call_type": record.get("call_type", "Inbound"),
+                "virtual_number": record.get("virtual_number", "TOLL_FREE"),
+                "issue_category": record.get("issue_category", "General"),
+                "status": record.get("status", "Pending"),
+                "duration": str(record.get("duration", 0)),
+                "escalated": "Yes" if record.get("escalated", False) else "No",
+                "citizen_feedback": record.get("citizen_feedback", "Neutral"),
+                "timestamp": record.get("created_at", ""),
+                "priority": record.get("priority", "Medium"),
+                "resolution_time": str(record.get("resolution_time", 0)),
+                "agent_type": record.get("agent_type", "AI"),
+                "satisfaction_score": str(record.get("satisfaction_score", 0)),
+                "callback_requested": "Yes" if record.get("callback_requested", False) else "No",
+                "language": record.get("language", "English")
+            })
+        return logs
+    except Exception as e:
+        print(f"Error loading logs from Supabase: {e}")
+        return []
 
 
 # 1️⃣ SYSTEM OVERVIEW (Enhanced)
