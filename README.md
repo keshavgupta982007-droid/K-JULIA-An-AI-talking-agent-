@@ -1,5 +1,6 @@
-K‑JULIA — An AI Talking Agent for Civic Services
-📌 Project Overview
+# K‑JULIA — An AI Talking Agent for Civic Services
+
+# 📌 Project Overview
 K‑JULIA is an AI‑powered Voice Automation System designed for Smart City & Civic Governance use cases.
 It enables citizens to interact with government services through natural phone‑like voice conversations, allowing them to register complaints, request information, and receive assistance without mobile apps or digital literacy barriers.
 
@@ -13,7 +14,7 @@ The system is designed to be:
 
 4.Government‑ready (auditability, escalation, analytics)
 
-🎯 Project Objectives
+# 🎯 Project Objectives
 1.Enable voice‑based civic interaction
 
 2.Automate complaint registration & handling
@@ -24,7 +25,8 @@ The system is designed to be:
 
 5.Build a vendor‑neutral, open‑source governance solution
 
-🧠 System Architecture — High‑Level Flow
+# 🧠 System Architecture — High‑Level Flow
+
 Citizen Voice
      ↓
 Voice System (STT + Safety)
@@ -235,7 +237,7 @@ Vendor‑neutral Python ecosystem
 
 ✔️ Ensures cost‑effective, transparent, government‑ready deployment
 
-👥 Team Members & Roles
+# 👥 Team Members & Roles
 👩‍💻 Drishya Murali:-
 ->AI Engine & backend logic
 
@@ -282,5 +284,6 @@ Integration with government portals
 
 Advanced analytics & ML‑based intent detection
 
-🏁 Conclusion
+# 🏁 Conclusion
+
 K‑JULIA demonstrates how AI‑driven voice automation can transform civic service delivery by making governance accessible, efficient, and citizen‑centric, fully aligned with Smart City & Digital Governance initiatives.
