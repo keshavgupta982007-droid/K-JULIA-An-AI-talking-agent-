@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Voice Automation – Civic Services Command Center</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="style.css"/>
+ 
+
+  <!-- Chart.js v4 -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+
+  
+
+  <style>
+    :root {
+      --primary: #0f4c81;
+      --primary-light: #1c77c3;
+      --bg: #f4f6f9;
+      --card: #ffffff;
+      --text: #2c3e50;
+      --muted: #7f8c8d;
+      --success: #27ae60;
+      --warning: #f39c12;
+      --danger: #e74c3c;
+      --info: #3498db;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(15,76,129,.4); }
+      70% { box-shadow: 0 0 0 12px rgba(15,76,129,0); }
+      100% { box-shadow: 0 0 0 0 rgba(15,76,129,0); }
+    }
+
+    .animate-fade {
+      opacity: 0;
+      animation: fadeIn .8s ease forwards;
+    }
+
+    .animate-pulse { animation: pulse 2s infinite; }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--primary-light));
+      color: #fff;
+      padding: 32px;
+    }
+
+    .header-content {
+      max-width: 1400px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    section {
+      max-width: 1400px;
+      margin: 40px auto;
+      padding: 0 24px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: var(--primary);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .grid {
+      display: grid;
+      gap: 20px;
+    }
+
+    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+    .grid-5 { grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); }
+
+    .card {
+      background: var(--card);
+      padding: 22px;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,.08);
+    }
+
+    .card-label { color: var(--muted); }
+    .card-value { font-size: 2rem; font-weight: 700; color: var(--primary); }
+
+    .insights-banner {
+      background: linear-gradient(135deg,#eef4ff,#f8fbff);
+      border-radius: 18px;
+      padding: 24px;
+      max-width: 1400px;
+      margin: 40px auto;
+    }
+
+    .insights-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .insight-card {
+      flex: 1;
+      min-width: 260px;
+      padding: 14px 20px;
+      border-radius: 12px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-weight: 500;
+    }
+
+    .info { background: #d6eaff; color: var(--info); }
+    .warning { background: #fff0d6; color: var(--warning); }
+    .success { background: #d6f0e0; color: var(--success); }
+    .alert { background: #ffd6d6; color: var(--danger); }
+
+    .charts-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(340px,1fr));
+    }
+
+    .chart-container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 16px;
+      height: 360px;
+    }
+
+    .chart-wide { grid-column: span 2; }
+
+    canvas { width: 100% !important; height: 100% !important; }
+
+    .section-loader {
+      text-align: center;
+      padding: 80px 0;
+    }
+
+    .loader {
+      width: 46px;
+      height: 46px;
+      border: 4px solid #ccc;
+      border-top: 4px solid var(--primary);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: auto;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--muted);
+      background: #fff;
+      margin-top: 60px;
+    }
+
+    @media (max-width: 1024px) {
+      .chart-wide { grid-column: span 1; }
+    }
+    .header-actions {
+  display: flex;
+  gap: 16px;
+}
+
+.header-actions button {
+  appearance: none;
+  border: none;
+  outline: none;
+
+  background: #ffffff;
+  color: #0f4c81;
+
+  padding: 12px 22px;
+  border-radius: 999px; /* pill shape */
+
+  font-size: 1rem;
+  font-weight: 600;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  cursor: pointer;
+
+  transition: 
+    background 0.2s ease,
+    transform 0.15s ease;
+}
+
+/* Hover – subtle, clean */
+.header-actions button:hover {
+  background: #eef4ff;
+  transform: translateY(-1px);
+}
+
+/* Active click */
+.header-actions button:active {
+  transform: translateY(0);
+}
+
+/* Icon size consistency */
+.header-actions button i {
+  font-size: 1rem;
+}
+
+
+
+.btn {
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: start;
+  gap: 5px;
+  transition: all 0.3s ease;
+}
+
+.btn-refresh {
+  background: #ffffff;
+  color: var(--primary);
+}
+
+.btn-refresh:hover {
+  background: #eef4ff;
+  transform: translateY(-2px);
+}
+
+.btn-export {
+  background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(15,76,129,0.35);
+}
+
+.btn-export:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(15,76,129,0.45);
+}
+
+.btn-export:active {
+  transform: scale(0.97);
+}
+
+  </style>
+</head>
+
+<body>
+
+<header>
+  <div class="header-content">
+    <div>
+      <h1><i class="fas fa-headset"></i> AI Voice Automation System</h1>
+      <p>Intelligent Civic Services Command Center</p>
+    </div>
+    <div class="header-actions">
+  <button onclick="location.reload()">
+    <i class="fas fa-sync-alt"></i>
+    Refresh
+  </button>
+
+  <button onclick="exportReport()">
+    <i class="fas fa-download"></i>
+    Export Report
+  </button>
+</div>
+
+</div>
+
+      
+
+</header>
+
+<section class="insights-banner">
+  <h2><i class="fas fa-lightbulb"></i> Real-Time Insights</h2>
+  <div class="insights-container">
+    <div class="insight-card info animate-fade">📈 Call volume up 18%</div>
+    <div class="insight-card warning animate-fade">⚠ High priority complaints rising</div>
+    <div class="insight-card success animate-fade">✅ AI resolution 71.6%</div>
+    <div class="insight-card alert animate-fade animate-pulse">🔔 Peak hour approaching</div>
+  </div>
+</section>
+<!-- ================= INSIGHTS ================= -->
+<section class="insights-banner">
+  <h2>💡 Real‑Time Insights & Alerts</h2>
+  <div class="insights-container">
+    <div class="insight-card info">📈 Call volume increased by 18% compared to yesterday.</div>
+    <div class="insight-card warning">⚠ High priority complaints up by 12% in the last hour.</div>
+    <div class="insight-card success">✅ AI resolution rate at all‑time high: 71.6%</div>
+    <div class="insight-card alert">🔔 Peak hour approaching – prepare agent staffing.</div>
+  </div>
+</section>
+
+<!-- ================= SYSTEM PERFORMANCE ================= -->
+<section>
+  <h2>📊 System Performance Overview</h2>
+  <div class="grid grid-4">
+    <div class="card"><p>Total Calls Handled</p><h3>12,450</h3></div>
+    <div class="card"><p>Inbound Civic Requests</p><h3>9,870</h3></div>
+    <div class="card"><p>Outbound Follow‑ups</p><h3>2,580</h3></div>
+    <div class="card"><p>Avg Call Duration</p><h3>185 sec</h3></div>
+  </div>
+</section>
+
+<!-- ================= AI PERFORMANCE ================= -->
+<section>
+  <h2>🤖 AI Resolution Performance</h2>
+  <div class="grid grid-3">
+    <div class="card"><p>AI‑Resolved Calls</p><h3>8,920</h3></div>
+    <div class="card"><p>Human Escalations</p><h3>3,530</h3></div>
+    <div class="card"><p>Auto‑Resolution Rate</p><h3>77.1%</h3></div>
+  </div>
+</section>
+
+<!-- ================= COMPLAINT INTELLIGENCE ================= -->
+<section>
+  <h2>📁 Civic Complaint Intelligence</h2>
+  <div class="grid grid-5">
+    <div class="card"><p>Registered</p><h3>5,420</h3></div>
+    <div class="card"><p>Resolved</p><h3>4,180</h3></div>
+    <div class="card"><p>Auto‑Resolved</p><h3>3,120</h3></div>
+    <div class="card"><p>Pending</p><h3>890</h3></div>
+    <div class="card"><p>Escalated</p><h3>350</h3></div>
+  </div>
+</section>
+<section>
+  <h2><i class="fas fa-chart-bar"></i> Call Analytics</h2>
+
+  <div id="chartsLoader" class="section-loader">
+    <div class="loader"></div>
+    <p>Loading analytics…</p>
+  </div>
+
+  <div id="charts" class="charts-grid" style="display:none">
+    <div class="chart-container"><canvas id="callTypeChart"></canvas></div>
+    <div class="chart-container"><canvas id="durationChart"></canvas></div>
+    <div class="chart-container"><canvas id="priorityChart"></canvas></div>
+    <div class="chart-container"><canvas id="languageChart"></canvas></div>
+    <div class="chart-container chart-wide"><canvas id="hourlyChart"></canvas></div>
+    <div class="chart-container chart-wide"><canvas id="categoryChart"></canvas></div>
+  </div>
+</section>
+
+<footer>
+  <p>Secure • Privacy-First • Government-Grade</p>
+  <p>Last Updated: <span id="lastUpdate"></span></p>
+</footer>
+
+<script>
+window.onload = () => {
+  document.getElementById("lastUpdate").textContent = new Date().toLocaleString();
+
+  setTimeout(() => {
+    document.getElementById("chartsLoader").style.display = "none";
+    document.getElementById("charts").style.display = "grid";
+
+    const base = { responsive:true, maintainAspectRatio:false };
+
+    new Chart(callTypeChart,{type:"doughnut",
+      data:{labels:["Inbound","Outbound"],datasets:[{data:[9870,2580]}]},
+      options:base
+    });
+
+    new Chart(durationChart,{type:"bar",
+      data:{labels:["0-1","1-3","3-5","5-10",">10"],datasets:[{data:[3200,4800,2100,900,450]}]},
+      options:base
+    });
+
+    new Chart(priorityChart,{type:"pie",
+      data:{labels:["Low","Medium","High","Critical"],datasets:[{data:[6200,3000,850,400]}]},
+      options:base
+    });
+
+    new Chart(languageChart,{type:"doughnut",
+      data:{labels:["English","Hindi","Tamil","Telugu","Others"],datasets:[{data:[5800,3200,600,450,400]}]},
+      options:base
+    });
+
+    new Chart(hourlyChart,{type:"line",
+      data:{labels:[...Array(24).keys()],datasets:[{data:[200,250,300,350,400,200,250,300,800,600,700,800,400,400,400,400,400,800,600,700,800,250,300,350],fill:true}]},
+      options:base
+    });
+
+    new Chart(categoryChart,{type:"bar",
+      data:{labels:["Water","Road","Garbage","Electricity","Lighting","Sewage"],datasets:[{data:[1450,1120,980,750,620,500]}]},
+      options:{...base,indexAxis:"y"}
+    });
+
+  }, 1200);
+};
+</script>
+
+</body>
+</html>
