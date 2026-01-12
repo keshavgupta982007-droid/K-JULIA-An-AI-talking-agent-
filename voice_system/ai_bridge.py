@@ -1,9 +1,4 @@
-# ai_bridge.py
-
-"""
-This file is the ONLY interface with the Brain System.
-Do NOT add AI logic here.
-"""
+# ai_bridge
 
 def send_to_brain(intent_packet):
     # Placeholder for real AI response
@@ -15,3 +10,4 @@ def send_to_brain(intent_packet):
         f"This is a high-level consulting response for the {domain} domain. "
         "Detailed AI reasoning will be provided by the core brain module."
     )
+
